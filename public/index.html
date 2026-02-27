@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown Pastebin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" integrity="sha512-/WWmM4M7rj4h3EmfRWBQ3Y6FfA0M3Ekf6Q+9x8lMJJAAii2f8h0PEceT5yxRpu72xL4gF7R5xwNnliQxWfHzWQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <h1>Markdown Pastebin</h1>
+        <p>Anonymous pastes with live markdown preview</p>
+      </header>
+
+      <section class="toolbar">
+        <label for="titleInput">Title</label>
+        <input id="titleInput" type="text" maxlength="200" placeholder="Optional title" />
+        <div class="button-row">
+          <button id="createButton" type="button">Create</button>
+          <button id="updateButton" type="button" disabled>Update</button>
+          <button id="deleteButton" type="button" disabled>Delete</button>
+          <button id="copyLinkButton" type="button" disabled>Copy Link</button>
+        </div>
+      </section>
+
+      <section class="pane-grid">
+        <div class="pane">
+          <h2>Markdown</h2>
+          <textarea id="contentInput" placeholder="# Write markdown here" rows="16"></textarea>
+          <p id="sizeCounter" class="meta">0 / 102400 bytes</p>
+        </div>
+
+        <div class="pane">
+          <h2>Preview</h2>
+          <article id="preview" class="preview"></article>
+        </div>
+      </section>
+
+      <section class="status-area">
+        <p id="statusMessage" aria-live="polite"></p>
+        <p id="errorMessage" class="error" aria-live="assertive"></p>
+        <p id="metadata" class="meta"></p>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js" integrity="sha512-KyQ+9j5+2uOw8NjX5SW8xj6nM7K00TtN0F4vj1PjP5IvEJi3pL2hm4xZmW0NQQFtJcVx8s4T8z4zH16C5RZk2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-WxVw+z47fNo9xQyh3eQG3FlVf7wY7b4uM3l7Qc1jru7lPIz0YJ4E9XaJRXQzLJzFKY5N4jIflS1klMTR9yJf3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/markdown.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
