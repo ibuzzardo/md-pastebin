@@ -2,84 +2,60 @@
 
 > Built with [Dark Factory v4](https://github.com/ibuzzardo/dark-factory-v4) — autonomous AI software development pipeline
 
-
 Markdown Pastebin — anonymous paste service with live preview.
 
-## Overview
+## Features
 
-This project is a full-stack Markdown Pastebin:
-- Express backend serving API + static frontend
 - Anonymous paste CRUD with `nanoid` identifiers
-- Live markdown preview in browser
+- Live markdown preview as you type
 - Syntax highlighting for fenced code blocks
-- View count increments on successful paste reads
-- Hard 100KB content limit (UTF-8 byte length)
+- View counter per paste
+- 100KB content limit with frontend + backend enforcement
+- Shareable URLs via hash routing (`/#<id>`)
+- Copy link button for easy sharing
 
-## Architecture
+## Tech Stack
 
-- `src/server/`: Express app, API routes, validation, in-memory store
-- `public/`: static SPA UI (`index.html`, `app.js`, `markdown.js`, `styles.css`)
-- `src/server/__tests__/`: API and limit tests (Supertest)
-- `public/__tests__/`: frontend behavior and markdown preview tests (JSDOM)
+- Express.js backend with in-memory store
+- Vanilla JS SPA frontend
+- Marked + highlight.js for markdown rendering
+- Supertest + JSDOM for testing
 
-## API Contract
-
-Base path: `/api`
-
-- `GET /api/health`
-  - Returns service health and timestamp
-- `GET /api/pastes`
-  - Lists paste summaries
-- `POST /api/pastes`
-  - Body: `{ "title"?: string, "content": string }`
-  - Creates paste, returns full record
-- `GET /api/pastes/:id`
-  - Returns paste and increments `views`
-- `PUT /api/pastes/:id`
-  - Body: `{ "title"?: string, "content": string }`
-  - Updates paste content/title
-- `DELETE /api/pastes/:id`
-  - Deletes paste
-
-### Paste Shape
-
-```json
-{
-  "id": "nanoid",
-  "title": "optional",
-  "content": "markdown",
-  "createdAt": "ISO-8601",
-  "updatedAt": "ISO-8601",
-  "views": 0
-}
-```
-
-## 100KB Limit Semantics
-
-- Server parser limit: request body capped at 100KB (`413` on overflow)
-- Validation limit: `content` must be `<= 102400` UTF-8 bytes (`400` with details)
-- Frontend live size counter warns and blocks submit above limit
-
-## Local Development
+## Getting Started
 
 ```bash
+git clone https://github.com/ibuzzardo/md-pastebin.git
+cd md-pastebin
+cp .env.example .env
 npm install
 npm run dev
 ```
 
 Open `http://localhost:3000`.
 
-## Tests
+## API Routes
 
-```bash
-npm test
-npm run test:server
-npm run test:client
-```
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | /api/health | Service health check |
+| GET | /api/pastes | List paste summaries |
+| POST | /api/pastes | Create a new paste |
+| GET | /api/pastes/:id | Get paste (increments views) |
+| PUT | /api/pastes/:id | Update paste content/title |
+| DELETE | /api/pastes/:id | Delete paste |
 
-## UX Notes
+## Architecture
 
-- Editor and preview update live as you type
-- URL hash stores active paste ID (`/#<id>`) for easy sharing
-- Copy Link button copies current paste link
-- Metadata shows current paste ID + views
+- `src/server/` — Express app, API routes, validation, in-memory store
+- `public/` — static SPA UI (index.html, app.js, markdown.js, styles.css)
+- `src/server/__tests__/` — API and limit tests (Supertest)
+- `public/__tests__/` — frontend behaviour and markdown preview tests (JSDOM)
+
+## Pipeline Stats
+
+- **Sprint cost:** ~$1.20
+- **Coder passes:** 1
+
+## License
+
+MIT — see [LICENSE](LICENSE)
