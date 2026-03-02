@@ -1,5 +1,8 @@
 # md-pastebin
 
+> Built with [Dark Factory v4](https://github.com/ibuzzardo/dark-factory-v4) — autonomous AI software development pipeline
+
+
 Markdown Pastebin — anonymous paste service with live preview.
 
 ## Overview
